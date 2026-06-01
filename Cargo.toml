@@ -1,0 +1,23 @@
+[package]
+name = "qrcc"
+version = "0.1.0"
+edition = "2024"
+description = "Générateur de QR code en ligne de commande qui affiche le résultat directement dans le terminal."
+license = "MIT"
+readme = "README.md"
+
+# Le projet est à la fois une bibliothèque (logique testable) et un binaire (le CLI).
+# `lib.rs` contient la logique réutilisable ; `main.rs` n'est qu'une fine couche d'entrée.
+[lib]
+name = "qrcc"
+path = "src/lib.rs"
+
+[[bin]]
+name = "qrcc"
+path = "src/main.rs"
+
+[dependencies]
+# Parsing des arguments de ligne de commande en mode déclaratif (derive).
+clap = { version = "4", features = ["derive"] }
+# Encodage d'une chaîne en matrice de modules QR.
+qrcode = "0.14"
