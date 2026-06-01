@@ -29,6 +29,27 @@ Pendant le développement, on peut lancer directement avec `cargo run` :
 cargo run -- "https://example.com"
 ```
 
+## Docker
+
+On peut utiliser `qrcc` sans installer la toolchain Rust. L'image est construite
+en multi-stage et produit un binaire musl statique embarqué dans une image
+`scratch` (≈ 1,8 Mo, sans OS ni libc). Elle fonctionne sur architectures amd64
+et arm64.
+
+```sh
+# Construire l'image
+docker build -t qrcc .
+
+# Encoder une URL passée en argument
+docker run --rm qrcc "https://example.com"
+
+# Lire le contenu depuis stdin (-i pour brancher l'entrée standard)
+echo "texte via stdin" | docker run --rm -i qrcc
+
+# Options du CLI
+docker run --rm qrcc "https://example.com" --ecc H --margin 4 --invert
+```
+
 ## Utilisation
 
 ```
